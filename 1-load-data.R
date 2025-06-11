@@ -18,3 +18,10 @@ ess11 <- haven::read_spss("data/ESS11.sav")
 
 ess10 <- haven::read_spss("data/ESS10.sav")
 
+# load ESS10 Self-completion - integrated file, edition 3.1 
+# DOI: 10.21338/ess10sce03_1
+
+ess10sc <- haven::read_spss("data/ESS10SC.sav")
+
+
+
