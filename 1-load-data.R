@@ -8,5 +8,10 @@ cronos <- haven::read_spss("data/CRON3W1e01.1.sav")
 # load ESS11 - integrated file, edition 3.0
 # DOI: 10.21338/ess11e03_0
 
-ess <- haven::read_spss("data/ESS11.sav")
+ess11 <- haven::read_spss("data/ESS11.sav")
+
+# load ESS10 - integrated file, edition 3.2
+# DOI: 10.21338/ess10e03_2
+
+ess10 <- haven::read_spss("data/ESS10.sav")
 
