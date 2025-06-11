@@ -5,6 +5,9 @@ library(tidyverse)
 
 cronos <- haven::read_spss("data/CRON3W1e01.1.sav")
 
+miss_cronos <- haven::read_spss("data/CRON3W1e01.1.sav", user_na = TRUE)
+
+
 # load ESS11 - integrated file, edition 3.0
 # DOI: 10.21338/ess11e03_0
 
