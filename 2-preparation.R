@@ -140,14 +140,15 @@ analysis_var_names <- c_mutated %>%
   names() # set prepared variables' names
 
 c_mutated <- c_mutated %>% 
-  mutate(id = paste(idno, cntry, mode, essround, sep = "_")) # unique id
+  mutate(id = paste(idno, cntry, mode, essround, sep = "_")) # make unique ids
 
 c_fin <- c_mutated %>% 
   filter(no_int_access_or_use == 0) %>% 
+  # exclude respondents who did not use the internet or had no access to it 
   select(id, analysis_var_names, w1weight)
 
-
-
+# haven::write_sav(data = c_fin, path = "data/cronos3_gotowe_hackaton.sav")
+## save file 
 
 
 

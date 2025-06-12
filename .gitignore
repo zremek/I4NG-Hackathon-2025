@@ -4,4 +4,6 @@
 .Ruserdata
 data/*
 *.html
+*.log
+*.tex
 todos.R

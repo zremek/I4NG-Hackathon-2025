@@ -1,0 +1,83 @@
+---
+title: "Policy Brief: What Helps People Spot False Information Online?"
+author: "Jakub Adamski, Remigiusz Żulicki"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+source("1-load-data.R")
+source("2-preparation.R")
+source("3-modeling.R")
+
+library(RColorBrewer)
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r logit-plot}
+
+# przygotowania do końcowego wykresu
+
+
+non_sig_M2 <- c("PGW", "SMP", "NETUALL", "DIGSKILLT", "GDF_C", "EDY_C", "AGE_C", "HTI_C")
+
+
+lbl <- c(
+  IFS = "Finds product \ninfo online",
+  LMA = "Manages social \nmedia privacy",
+  BSC = "Adjusts browser \ncookie settings",
+  FLC = "Creates digital \nfiles",
+  SCNTR = "Trust in scientists",
+  GENTR = "General trust \nin others"
+)
+
+
+p1 <- plot_model(
+  M2,
+  show.values = T,
+  value.offset = 0.2,
+  colors = "Set2",
+  rm.terms = non_sig_M2,
+  sort.est = T,
+  axis.labels = "",
+  axis.lim = c(0.6, 5)
+) +
+  labs(title = "What Helps People Spot False Information Online?",
+       subtitle = "People who know how to search for products, manage privacy on social media,\nand adjust browser settings are much more likely to say they can tell if online \ncontent is true. \nTrust in scientists also helps a little, while general trust in others may slightly \nreduce this confidence",
+       caption = "Source: own elaboration with CRONOS 3, ESS 10 and 11 survey data") + 
+  theme_minimal() + 
+  geom_hline(yintercept = 1, linetype = "dashed", color = "darkgray", alpha = 0.6) +
+  annotate("text", x = 1.5, y = 1.75,
+           label = "Odds Ratio of 1 = no effect", color = "darkgray", alpha = 0.6) +
+  annotate("text", x = 0.7, y = 1,
+           label = "Below 1 = negative effect", color = "#66C2A5" , alpha = 0.6) + 
+  annotate("text", x = 5.5, y = 6,
+           label = "Above 1 = positive effect", color = "#FC8D62" , alpha = 0.6) + 
+  scale_x_discrete(labels = lbl)
+
+plot(p1)
+
+
+```
+
+~This\ work\ is\ licensed\ under\ CC\ BY\ 4.0.\ To\ view\ a\ copy\ of\ this\ license,\ visit\ [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/)~
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
