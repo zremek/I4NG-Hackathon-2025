@@ -35,7 +35,11 @@ c_mutated <- c_selected %>%
 # 
 # 320 + 189 - 163 = 346 # these resp. should be excluded
 # 
-# frq(c_mutated$no_int_access_or_use) # 1 is 346 resp. 
+# frq(c_mutated$no_int_access_or_use) # value 1 is 346 resp. 
+
+# prepare country names #### 
+
+c_mutated$CNTR_C <- as_label(c_mutated$cntry)
 
 # join trust variables pplfair, pplhlp, ppltrst from ESS #### 
 
@@ -45,5 +49,20 @@ binded_ess <- bind_rows(ess10 %>% select(idno, cntry, mode, essround, pplfair, p
 
 c_mutated <- left_join(x = c_mutated, 
                        y = binded_ess)
+
+# prepare control variables #### 
+
+c_mutated <- c_mutated %>% 
+  mutate(
+    GDF_C = case_when(gndr == 2 ~ 1, .default = 0), # Female is 1
+    EDY_C = as.numeric(eduyrs), # Years of full-time education completed
+    HTI_C = as.numeric(hinctnta), # Household's total net income, all sources in deciles
+    AGE_C = as.numeric(age) # Age of respondent, calculated
+    )
+
+
+
+
+
 
 
