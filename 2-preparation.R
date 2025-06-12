@@ -19,6 +19,8 @@ c_selected <- cronos %>% select(idno,
                                 # devices and computer skills
                                 w1sq16,
                                 # trust in scientists
+                                w1dq19_1:w1dq19_3,
+                                # digital skills trainings 
                                 w1weight) # weighting 
 
 # create new variable no_int_access_or_use #### 
@@ -41,7 +43,7 @@ binded_ess <- bind_rows(ess10 %>% select(idno, cntry, mode, essround, pplfair, p
                         ess10sc %>% select(idno, cntry, mode, essround, pplfair, pplhlp, ppltrst),
                         ess11 %>% select(idno, cntry, mode, essround, pplfair, pplhlp, ppltrst))
 
-tmp_joined <- left_join(x = c_mutated, 
+c_mutated <- left_join(x = c_mutated, 
                        y = binded_ess)
 
 
