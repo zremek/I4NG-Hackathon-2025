@@ -1,5 +1,5 @@
 ---
-title: "Policy Brief: What Helps People Spot False Information Online?"
+title: "Policy brief: Europeans and False Online Information"
 author: "Jakub Adamski, Remigiusz Żulicki"
 date: "`r Sys.Date()`"
 output:
@@ -18,22 +18,55 @@ library(RColorBrewer)
 
 ```
 
-## R Markdown
+## Strengthening Digital Fact-Checking Skills in the Age of AI
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The rise of false, misleading, and deliberately deceptive digital content, often amplified by artificial intelligence, poses a growing threat to liberal democracy, human rights, and core European values.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+This brief aims to answer the following questions:
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+1.  What influences Europeans’ confidence in digital fact-checking, i.e., verifying the truthfulness of online information and content?
+2.  What policy recommendations can be formulated to strengthen the digital fact-checking skills of European citizens?
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+## The Confidence Gap
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+The CRONOS 3 survey asked people across Europe to what extent the statement: “**I know how to check the truthfulness of the information or content I find on the internet**” is true for them. Only 30% said it was very true. At the same time, as many as 86% say they use the Internet almost all the time or several times a day. That means 67% of these most frequent internet users are not confident in their digital fact-checking skills.
+
+```{r xtab, include=FALSE}
+library(webshot)
+
+c_mutated_tab <- c_mutated %>% 
+  filter(no_int_access_or_use == 0) %>% 
+  select(w1weight, TRC, w1dq3) %>% 
+  mutate(NETU_T = case_when(
+    w1dq3 == 1 | w1dq3 == 2 ~ 1, 
+    is.na(w1dq3) ~ NA_integer_, 
+    .default = 0), 
+    NETU_T = set_label(NETU_T, "Uses internet almost all the time or several times a day"), 
+    TRC = set_label(TRC, "Knows how to check truthfulness of online content"), 
+    NETU_T = set_labels(NETU_T, labels = c("Yes" = 1, "No" = 0)), 
+    TRC = set_labels(TRC, labels = c("Very true" = 1, "Other" = 0)))  
+  
+
+tab_xtab(c_mutated_tab$TRC, c_mutated_tab$NETU_T,
+         weight.by = c_mutated_tab$w1weight, 
+         show.na = T, 
+         show.obs = F, 
+         show.col.prc = T, 
+         show.row.prc = T, 
+         show.summary = F,
+         emph.total = T, 
+         use.viewer = F,
+         digits = 0,
+         file = "t.html")
+
+webshot("t.html", "t.pdf", vheight = 200, vwidth = 400) 
+```
+
+## Factors of Confidence in Digital Fact-Checking
+
+We analyzed several factors that influence respondents’ confidence in digital fact-checking. We found meaningful associations between other digital skills and two types of trust:
 
 ```{r logit-plot, message=FALSE}
-
-# przygotowania do końcowego wykresu
-
 
 non_sig_M2 <- c("PGW", "SMP", "NETUALL", "DIGSKILLT", "GDF_C", "EDY_C", "AGE_C", "HTI_C")
 
@@ -76,16 +109,36 @@ plot(p1)
 
 ```
 
-~This\ work\ is\ licensed\ under\ CC\ BY\ 4.0.\ To\ view\ a\ copy\ of\ this\ license,\ visit\ [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/)~
+~This work is licensed under CC BY 4.0. To view a copy of this license, visit [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/)~
 
 ![](by.png){width="88"}
 
-## Including Plots
+## Digital Skills Matter
 
-You can also embed plots, for example:
+The most important factor is confidence in finding information about goods or services online. People who declare this belief have **over 3.5 times the odds** of being confident in fact-checking **than those who do not**. This suggests that people look at information truthfulness as consumers.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+> Recommendation 1 – design fact-checking campaigns and training that mirror familiar online shopping behaviors. This makes the skill feel more intuitive and easier to learn.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The next essential factors are limiting access to one’s profile or content on social media and restricting cookies via internet browsers. These digital privacy skills increase confidence by **2.9 and 2.3 times the odds**.
+
+> Recommendation 2– combine fact-checking campaigns and training with digital privacy issues. These skills reinforce each other and may have similar motivations.
+
+We found that participation in any digital skills training does not affect confidence in digital fact-checking. Thus, the training needs to be focused on that skill set. However, basic digital know-how does matter. People confident in creating digital files have **almost 2 times the odds** of being confident in fact-checking**.**
+
+## The Surprising Role of Trust 
+
+**Each step up of general trust in others decreases the likelihood** of confidence in digital fact-checking **by 11% (0.89 odds ratio)**. The more trusting the respondents are, the less likely they are to consider themselves capable of fact-checking online.
+
+> Recommendation 3 – highlight the difference between trusting people in real life and trusting sources online. The internet is neither just an extension of the offline world nor has the same social rules.
+
+**Each step up of trust in scientists** **increases the likelihood** of confidence in digital fact-checking **by 9% (1.09 odds ratio). Therefore, f**act-checking skills and trust in people who provide evidence-based and validated information are positively related.
+
+> Recommendation 4– invest in academia to support scholars in sharing their work in accessible ways. Train academic researchers to communicate their findings to the public.
+
+### Analytical note
+
+We studied 14 factors, and 8 had no meaningful impact on confidence in fact-checking: computer programming skills, using social media, frequency of internet use, participation in digital skills training, gender, age, education, income, and country of residence.
+
+Open data from CRONOS3 Wave 1, ESS10, and 11 surveys represent 11 European countries: Austria, Belgium, Czechia, Finland, France, Hungary, Iceland, Poland, Portugal, Slovenia, and the United Kingdom. Respondents who did not use the internet or had no access to it were excluded; a total unweighted sample in the analysis was n = 9,538.
+
+Supplementary tables and code to reproduce our analysis are openly available at: <https://github.com/zremek/I4NG-Hackathon-2025>
