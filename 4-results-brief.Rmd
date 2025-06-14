@@ -1,9 +1,9 @@
 ---
-title: "Policy brief: Europeans and False Online Information"
-author: "Jakub Adamski, Remigiusz Żulicki"
-date: "`r Sys.Date()`"
 output:
-  pdf_document: default
+  pdf_document:
+    includes:
+      in_header: preamble.tex
+
   html_document: default
 ---
 
@@ -18,18 +18,34 @@ library(RColorBrewer)
 
 ```
 
+# Policy brief: Europeans and False Online Information
+
+\textit{Document created `r Sys.Date()`}
+
 ## Strengthening Digital Fact-Checking Skills in the Age of AI
 
 The rise of false, misleading, and deliberately deceptive digital content, often amplified by artificial intelligence, poses a growing threat to liberal democracy, human rights, and core European values.
 
+\begin{center}
+\begin{tcolorbox}[orangebox]
 This brief aims to answer the following questions:
 
-1.  What influences Europeans’ confidence in digital fact-checking, i.e., verifying the truthfulness of online information and content?
-2.  What policy recommendations can be formulated to strengthen the digital fact-checking skills of European citizens?
+\begin{enumerate}
+  \item What influences Europeans’ \textbf{confidence in digital fact-checking}, i.e., verifying the truthfulness of online information and content?
+  \item What \textbf{policy recommendations can be formulated to strengthen the digital fact-checking skills} of European citizens?
+\end{enumerate}
+\end{tcolorbox}
+\end{center}
 
 ## The Confidence Gap
 
-The CRONOS 3 survey asked people across Europe to what extent the statement: “**I know how to check the truthfulness of the information or content I find on the internet**” is true for them. Only 30% said it was very true. At the same time, as many as 86% say they use the Internet almost all the time or several times a day. That means 67% of these most frequent internet users are not confident in their digital fact-checking skills.
+\begin{flushleft}
+The CRONOS 3 survey asked people across Europe to what extent the statement: 
+“\textbf{I know how to check the truthfulness of the information or content I find on the internet}”
+is true for them. \textcolor{exactgreen}{\textbf{Only 30\% said it was very true, thus they were confident in digital fact-checking skills}}. 
+At the same time, as many as 86\% say they use the Internet almost all the time or several times a day. 
+That means \textcolor{exactorange}{\textbf{67\% of most frequent internet users are not confident in their digital fact-checking skills}}.
+\end{flushleft}
 
 ```{r xtab, include=FALSE}
 library(webshot)
@@ -66,16 +82,16 @@ webshot("t.html", "t.pdf", vheight = 200, vwidth = 400)
 
 We analyzed several factors that influence respondents’ confidence in digital fact-checking. We found meaningful associations between other digital skills and two types of trust:
 
-```{r logit-plot, message=FALSE}
+```{r logit-plot, fig.height=3.5, message=FALSE}
 
 non_sig_M2 <- c("PGW", "SMP", "NETUALL", "DIGSKILLT", "GDF_C", "EDY_C", "AGE_C", "HTI_C")
 
 
 lbl <- c(
-  IFS = "Finds product \ninfo online",
-  LMA = "Manages social \nmedia privacy",
-  BSC = "Adjusts browser \ncookie settings",
-  FLC = "Creates digital \nfiles",
+  IFS = "Find product or service \ninformation online",
+  LMA = "Limit access \nto social media profile",
+  BSC = "Restrict browser \ncookie settings",
+  FLC = "Create digital \nfiles",
   SCNTR = "Trust in scientists",
   GENTR = "General trust \nin others"
 )
@@ -84,23 +100,24 @@ lbl <- c(
 p1 <- plot_model(
   M2,
   show.values = T,
-  value.offset = 0.2,
+  value.offset = 0.4,
   colors = "Set2",
   rm.terms = non_sig_M2,
   sort.est = T,
   axis.labels = "",
-  axis.lim = c(0.6, 5)
+  axis.lim = c(0.6, 5), 
+  title = ""
 ) +
-  labs(title = "What Helps People Spot False Information Online?",
-       subtitle = "People who know how to search for products, manage privacy on social media,\nand adjust browser settings are much more likely to say they can tell if online \ncontent is true. \nTrust in scientists also helps a little, while general trust in others may slightly \nreduce this confidence",
-       caption = "Source: own elaboration with CRONOS 3, ESS 10 and 11 survey data") + 
+  labs(
+subtitle = "People confident in finding information about goods or services online,\nlimiting access to their social media profiles, and restricting cookies\nare more likely to be confident in digital fact-checking.\nTrust in scientists also increases this confidence; general trust reduces it.", 
+caption = "Source: Own elaboration based on CRONOS3 and ESS10–11 survey data.\nDots represent odds ratio values; lines indicate the uncertainty of the results.") + 
   theme_minimal() + 
   geom_hline(yintercept = 1, linetype = "dashed", color = "darkgray", alpha = 0.6) +
-  annotate("text", x = 1.5, y = 1.75,
+  annotate("text", x = 3.8, y = 0.85,
            label = "Odds Ratio of 1 = no effect", color = "darkgray", alpha = 0.6) +
   annotate("text", x = 0.7, y = 1,
            label = "Below 1 = negative effect", color = "#66C2A5" , alpha = 0.6) + 
-  annotate("text", x = 5.5, y = 6,
+  annotate("text", x = 4.5, y = 6,
            label = "Above 1 = positive effect", color = "#FC8D62" , alpha = 0.6) + 
   scale_x_discrete(labels = lbl)
 
@@ -111,34 +128,69 @@ plot(p1)
 
 ~This work is licensed under CC BY 4.0. To view a copy of this license, visit [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/)~
 
-![](by.png){width="88"}
+\begin{center}
+\includegraphics[width=44mm]{by.png}
+\end{center}
 
 ## Digital Skills Matter
 
 The most important factor is confidence in finding information about goods or services online. People who declare this belief have **over 3.5 times the odds** of being confident in fact-checking **than those who do not**. This suggests that people look at information truthfulness as consumers.
 
-> Recommendation 1 – design fact-checking campaigns and training that mirror familiar online shopping behaviors. This makes the skill feel more intuitive and easier to learn.
+\begin{center}
+\begin{tcolorbox}[greenbox]
+Recommendation 1:
+
+\textbf{Design fact-checking campaigns and training that mirror familiar online shopping behaviors. This makes the skill feel more intuitive and easier to learn}.
+\end{tcolorbox}
+\end{center}
 
 The next essential factors are limiting access to one’s profile or content on social media and restricting cookies via internet browsers. These digital privacy skills increase confidence by **2.9 and 2.3 times the odds**.
 
-> Recommendation 2– combine fact-checking campaigns and training with digital privacy issues. These skills reinforce each other and may have similar motivations.
+\begin{center}
+\begin{tcolorbox}[orangebox]
+Recommendation 2:
 
-We found that participation in any digital skills training does not affect confidence in digital fact-checking. Thus, the training needs to be focused on that skill set. However, basic digital know-how does matter. People confident in creating digital files have **almost 2 times the odds** of being confident in fact-checking**.**
+\textbf{Combine fact-checking campaigns and training with digital privacy issues. These skills reinforce each other and may have similar motivations}.
+\end{tcolorbox}
+\end{center}
 
-## The Surprising Role of Trust 
+We found that participation in any digital skills training does not affect confidence in digital fact-checking. Thus, the training needs to be focused on that skill set. However, basic digital know-how does matter. People confident in creating digital files have **almost 2 times the odds** of being confident in fact-checking.
 
-**Each step up of general trust in others decreases the likelihood** of confidence in digital fact-checking **by 11% (0.89 odds ratio)**. The more trusting the respondents are, the less likely they are to consider themselves capable of fact-checking online.
+## The Surprising Role of Trust
 
-> Recommendation 3 – highlight the difference between trusting people in real life and trusting sources online. The internet is neither just an extension of the offline world nor has the same social rules.
+**Each step up of general trust in others decreases the likelihood** of confidence in digital fact-checking **by 11%** (0.89 odds ratio). The more trusting the respondents are, the less likely they are to consider themselves capable of fact-checking online.
 
-**Each step up of trust in scientists** **increases the likelihood** of confidence in digital fact-checking **by 9% (1.09 odds ratio). Therefore, f**act-checking skills and trust in people who provide evidence-based and validated information are positively related.
+\begin{center}
+\begin{tcolorbox}[greenbox]
+Recommendation 3:
 
-> Recommendation 4– invest in academia to support scholars in sharing their work in accessible ways. Train academic researchers to communicate their findings to the public.
+\textbf{Highlight the difference between trusting people in real life and trusting sources online.\\The internet is neither just an extension of the offline world nor has the same social rules}.
+\end{tcolorbox}
+\end{center}
+
+**Each step up of trust in scientists** **increases the likelihood** of confidence in digital fact-checking **by 9%** (1.09 odds ratio). Therefore, fact-checking skills and trust in people who provide evidence-based and validated information are positively related.
+
+\begin{center}
+\begin{tcolorbox}[orangebox]
+Recommendation 4:
+
+\textbf{Invest in academia to support scholars in sharing their work in accessible ways.\\Train academic researchers to communicate their findings to the public}.
+\end{tcolorbox}
+\end{center}
 
 ### Analytical note
 
-We studied 14 factors, and 8 had no meaningful impact on confidence in fact-checking: computer programming skills, using social media, frequency of internet use, participation in digital skills training, gender, age, education, income, and country of residence.
+\begin{flushleft}
+\footnotesize
 
-Open data from CRONOS3 Wave 1, ESS10, and 11 surveys represent 11 European countries: Austria, Belgium, Czechia, Finland, France, Hungary, Iceland, Poland, Portugal, Slovenia, and the United Kingdom. Respondents who did not use the internet or had no access to it were excluded; a total unweighted sample in the analysis was n = 9,538.
+We studied 14 factors of confidence in digital fact-checking, and 8 had no meaningful impact: computer programming skills, using social media, frequency of internet use, participation in digital skills training, gender, age, education, income, and country of residence.
 
-Supplementary tables and code to reproduce our analysis are openly available at: <https://github.com/zremek/I4NG-Hackathon-2025>
+Open data from CRONOS3 Wave 1 (\url{https://doi.org/10.21338/cronos3-w1}), ESS10 (\url{https://doi.org/10.21338/ess10e03_2}), ESS10sc (\url{https://doi.org/10.21338/ess10sce03_1}), and ESS11 (\url{https://doi.org/10.21338/ess11e03_0}) represent countries: Austria, Belgium, Czechia, Finland, France, Hungary, Iceland, Poland, Portugal, Slovenia, and the United Kingdom. Respondents who did not use the internet or had no access to it were excluded; a total unweighted sample in the analysis was $n = 9{,}538$.
+
+Supplementary tables and code to reproduce our analysis are openly available at: \url{https://github.com/zremek/I4NG-Hackathon-2025}
+\normalsize
+\end{flushleft}
+
+~**Authors**: Jakub Adamski, [jakub.adamski\@uni.lodz.pl](mailto:jakub.adamski@uni.lodz.pl) Remigiusz Żulicki, [remigiusz.zulicki\@uni.lodz.pl](mailto:remigiusz.zulicki@uni.lodz.pl)~
+
+~[Faculty of Economics and Sociology](https://www.eksoc.uni.lodz.pl/en/about-the-faculty/get-to-know-eksoc), University of Lodz, Poland~
