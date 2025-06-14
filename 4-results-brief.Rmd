@@ -110,7 +110,7 @@ p1 <- plot_model(
 ) +
   labs(
 subtitle = "People confident in finding information about goods or services online,\nlimiting access to their social media profiles, and restricting cookies\nare more likely to be confident in digital fact-checking.\nTrust in scientists also increases this confidence; general trust reduces it.", 
-caption = "Source: Own elaboration based on CRONOS3 and ESS10–11 survey data.\nDots represent odds ratio values; lines indicate the uncertainty of the results.") + 
+caption = "Source: Own elaboration based on CRONOS3 and ESS10-11 survey data.\nDots represent odds ratio values; lines indicate the uncertainty of the results.") + 
   theme_minimal() + 
   geom_hline(yintercept = 1, linetype = "dashed", color = "darkgray", alpha = 0.6) +
   annotate("text", x = 3.8, y = 0.85,
