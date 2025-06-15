@@ -32,7 +32,7 @@ The project was developed as part of the [I4NG Hackathon 2025](https://infra4nex
 
 ------------------------------------------------------------------------
 
-**Read the full policy brief or see [supplementary tables](https://github.com/zremek/I4NG-Hackathon-2025/tree/main/supplementary_tables).**
+**Read the [full policy brief](https://github.com/zremek/I4NG-Hackathon-2025/blob/main/4-results-brief-digital-fact-checking.pdf) or see [supplementary tables](https://github.com/zremek/I4NG-Hackathon-2025/tree/main/supplementary_tables).**
 
 ------------------------------------------------------------------------
 
