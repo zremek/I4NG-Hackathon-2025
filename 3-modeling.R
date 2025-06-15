@@ -1,7 +1,7 @@
 
 library(survey)
 
-# Define the survey design #### 
+# define the survey design #### 
 design <- svydesign(
   ids = ~1,
   weights = ~w1weight,
@@ -25,11 +25,9 @@ summary(M0)
 exp(cbind(OR = coef(M0), confint(M0)))
 
 
-# teraz dwa modele bez krajów - kraje nie działają #### 
+# two models without countries #### 
 
-## bez zaufania ess i bez dochodu M1
-
-
+## limited predictors M1, keep more observations #### 
 
 M1 <- svyglm(
   TRC ~ FLC + PGW + IFS + SMP + LMA + BSC + # know-hows
@@ -44,11 +42,7 @@ summary(M1)
 
 exp(cbind(OR = coef(M1), confint(M1)))
 
-
-
-## bez zaufania ess i bez dochodu M1
-
-
+## more substantive predictors M2 #### 
 
 M2 <- svyglm(
   TRC ~ FLC + PGW + IFS + SMP + LMA + BSC + # know-hows
@@ -63,15 +57,17 @@ summary(M2)
 
 exp(cbind(OR = coef(M2), confint(M2)))
 
-tab_model(M1, M2, M0)
+# M2 is a final model for the policy brief
 
-# produce suplementary tables 
+# produce suplementary tables #### 
 
 library(webshot)
 
+## tab 1 shows percentages used in "The Confidence Gap" section of the brief #### 
+
 c_mutated_tab <- c_mutated %>% 
   filter(no_int_access_or_use == 0) %>% 
-  select(w1weight, TRC, w1dq3) %>% 
+  select(w1weight, TRC, w1dq3, w1dq9) %>% 
   mutate(NETU_T = case_when(
     w1dq3 == 1 | w1dq3 == 2 ~ 1, 
     is.na(w1dq3) ~ NA_integer_, 
@@ -84,14 +80,65 @@ c_mutated_tab <- c_mutated %>%
 
 tab_xtab(c_mutated_tab$TRC, c_mutated_tab$NETU_T,
          weight.by = c_mutated_tab$w1weight, 
-         show.na = T, 
          show.obs = F, 
          show.col.prc = T, 
          show.row.prc = T, 
          show.summary = F,
          emph.total = T, 
          use.viewer = F,
-         digits = 0,
-         file = "t.html")
+         title = "Checking truthfulness of online content vs. frequent internet usage. Answers 'Very true' were treated as an indicator of confidence in digital fact-checking; grouped categories, weighted percentages of answers.",
+         file = "t1.html")
 
-webshot("t.html", "t.pdf", vheight = 200, vwidth = 400)
+## tab2 shows distribution of original categories used to create tab1 #### 
+
+tab_xtab(c_mutated_tab$w1dq9, c_mutated_tab$w1dq3,
+         weight.by = c_mutated_tab$w1weight, 
+         show.obs = F, 
+         show.col.prc = T, 
+         show.row.prc = T, 
+         show.summary = F,
+         emph.total = T, 
+         use.viewer = F,
+         title = "Checking truthfulness of online content vs. frequent internet usage. Original categories; weighted percentages of answers.",
+         file = "t2.html")
+
+## tab3 shows distribution as in tab2, but with unweighted counts and percentages #### 
+
+tab_xtab(c_mutated_tab$w1dq9, c_mutated_tab$w1dq3,
+         show.obs = T, 
+         show.col.prc = T, 
+         show.row.prc = T, 
+         show.na = T,
+         show.summary = F,
+         emph.total = T, 
+         use.viewer = F,
+         title = "Checking truthfulness of online content vs. frequent internet usage. Original categories and missings (NA); unweighted counts and percentages of answers.",
+         file = "t3.html")
+
+## tab4 shows three logistic models' statistics #### 
+
+tab_model(
+  M0,
+  M1,
+  M2,
+  title = "Dependent variable: Knows how to check truthfulness of online content (1 = 'Very true', 0 = other). Answers 'Very true' were treated as an indicator of confidence in digital fact-checking; logistic regression method, weighted data.",
+  dv.labels = c(
+    "M0: inital model",
+    "M1: limited predictors",
+    "M2: final model, p<0.05 predictors' odds ratios shown in the brief"
+  ),
+  use.viewer = F,
+  file = "t4.html"
+)
+
+webshot("t1.html", "tab1-conf-gap-pct-supl.pdf",
+        vheight = 200, vwidth = 400)
+
+webshot("t2.html", "tab2-conf-gap-pct-org-categories-supl.pdf",
+        vheight = 500, vwidth = 500)
+
+webshot("t3.html", "tab3-conf-gap-n-pct-org-categories-unweight-supl.pdf",
+        vheight = 500, vwidth = 500)
+
+webshot("t4.html", "tab4-logisitic-models-supl.pdf")
+

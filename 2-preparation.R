@@ -61,7 +61,7 @@ c_mutated <- c_mutated %>%
     )
 
 
-# prepare all dependent and independet variables #### 
+# prepare all other dependent and independent variables #### 
 
 c_mutated <- c_mutated %>%
   # Recode "know how" variables: 1 = "Very true of me" (value 5), 0 = all others
