@@ -2,7 +2,7 @@
 # ============================== read me first ================================
 # reproducibility note: #### 
 # to run this script you need to source 3-modeling.R
-# warning: this script creates a new directory and files on you machine
+# WARNING: this script creates a new directory and writes files to your machine.
 # =============================================================================
 
 # produce suplementary tables #### 
@@ -86,7 +86,7 @@ webshot("t2.html", "tab2-conf-gap-pct-org-categories-supl.pdf",
 webshot("t3.html", "tab3-conf-gap-n-pct-org-categories-unweight-supl.pdf",
         vheight = 500, vwidth = 500)
 
-webshot("t4.html", "tab4-logisitic-models-supl.pdf")
+webshot("t4.html", "tab4-logistic-models-supl.pdf")
 
 ## new dir for tables in pdf and move files #### 
 # create the target folder if it doesn't exist
@@ -97,7 +97,7 @@ pdf_files <- c(
   "tab1-conf-gap-pct-supl.pdf",
   "tab2-conf-gap-pct-org-categories-supl.pdf",
   "tab3-conf-gap-n-pct-org-categories-unweight-supl.pdf",
-  "tab4-logisitic-models-supl.pdf"
+  "tab4-logistic-models-supl.pdf"
 )
 
 # move each file to the supplementary_tables folder
