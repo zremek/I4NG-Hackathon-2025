@@ -68,9 +68,9 @@ All supplementary tables and code are available in this repo.
 
 ## 👥 Authors
 
--   **Jakub Adamski** – [jakub.adamski\@uni.lodz.pl](mailto:jakub.adamski@uni.lodz.pl)\
+-   **Jakub Adamski** – [jakub.adamski\@uni.lodz.pl](mailto:jakub.adamski@uni.lodz.pl)
 
--   **Remigiusz Żulicki** – [remigiusz.zulicki\@ni.lodz.pl](mailto:remigiusz.zulicki@ni.lodz.pl)\
+-   **Remigiusz Żulicki** – [remigiusz.zulicki\@ni.lodz.pl](mailto:remigiusz.zulicki@ni.lodz.pl)
 
 [Faculty of Economics and Sociology](https://www.eksoc.uni.lodz.pl/en/about-the-faculty/get-to-know-eksoc), University of Lodz, Poland
 
@@ -80,4 +80,4 @@ This work is licensed under CC BY 4.0.
 
 To view a copy of this license, visit [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/)
 
-![](by.png){width="142"}
+![](by.png)
