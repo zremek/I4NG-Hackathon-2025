@@ -144,7 +144,7 @@ Recommendation 1:
 \end{tcolorbox}
 \end{center}
 
-The next essential factors are limiting access to one’s profile or content on social media and restricting cookies via internet browsers. These digital privacy skills increase confidence by **2.9 and 2.3 times the odds**.
+The next essential factors are limiting access to one’s profile or content on social media and restricting cookies via internet browsers. These digital privacy skills **increase the odds of being confident in fact-checking 2.9 and 2.3 times**.
 
 \begin{center}
 \begin{tcolorbox}[orangebox]
