@@ -142,3 +142,25 @@ webshot("t3.html", "tab3-conf-gap-n-pct-org-categories-unweight-supl.pdf",
 
 webshot("t4.html", "tab4-logisitic-models-supl.pdf")
 
+## new dir for tables in pdf and move files #### 
+# create the target folder if it doesn't exist
+dir.create(here("supplementary_tables"), showWarnings = FALSE)
+
+# list of PDF files to move
+pdf_files <- c(
+  "tab1-conf-gap-pct-supl.pdf",
+  "tab2-conf-gap-pct-org-categories-supl.pdf",
+  "tab3-conf-gap-n-pct-org-categories-unweight-supl.pdf",
+  "tab4-logisitic-models-supl.pdf"
+)
+
+# move each file to the supplementary_tables folder
+for (file in pdf_files) {
+  from <- here(file)
+  to <- here("supplementary_tables", file)
+  if (file.exists(from)) {
+    file.rename(from, to)
+  } else {
+    message(paste("File not found:", file))
+  }
+}
