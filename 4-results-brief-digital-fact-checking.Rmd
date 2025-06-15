@@ -47,37 +47,6 @@ At the same time, as many as 86\% say they use the Internet almost all the time 
 That means \textcolor{exactorange}{\textbf{67\% of most frequent internet users are not confident in their digital fact-checking skills}}.
 \end{flushleft}
 
-```{r xtab, include=FALSE}
-library(webshot)
-
-c_mutated_tab <- c_mutated %>% 
-  filter(no_int_access_or_use == 0) %>% 
-  select(w1weight, TRC, w1dq3) %>% 
-  mutate(NETU_T = case_when(
-    w1dq3 == 1 | w1dq3 == 2 ~ 1, 
-    is.na(w1dq3) ~ NA_integer_, 
-    .default = 0), 
-    NETU_T = set_label(NETU_T, "Uses internet almost all the time or several times a day"), 
-    TRC = set_label(TRC, "Knows how to check truthfulness of online content"), 
-    NETU_T = set_labels(NETU_T, labels = c("Yes" = 1, "No" = 0)), 
-    TRC = set_labels(TRC, labels = c("Very true" = 1, "Other" = 0)))  
-  
-
-tab_xtab(c_mutated_tab$TRC, c_mutated_tab$NETU_T,
-         weight.by = c_mutated_tab$w1weight, 
-         show.na = T, 
-         show.obs = F, 
-         show.col.prc = T, 
-         show.row.prc = T, 
-         show.summary = F,
-         emph.total = T, 
-         use.viewer = F,
-         digits = 0,
-         file = "t.html")
-
-webshot("t.html", "t.pdf", vheight = 200, vwidth = 400) 
-```
-
 ## Factors of Confidence in Digital Fact-Checking
 
 We analyzed several factors that influence respondents’ confidence in digital fact-checking. We found meaningful associations between other digital skills and two types of trust:
