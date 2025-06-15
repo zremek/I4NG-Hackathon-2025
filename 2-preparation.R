@@ -4,6 +4,11 @@ library(sjmisc)
 library(DataExplorer)
 library(table1)
 
+# ============================== read me first ================================
+# reproducibility note: #### 
+# to run this script you need to source 1-load-data.R
+# =============================================================================
+
 # select variables #### 
 c_selected <- cronos %>% select(idno,
                                 cntry,

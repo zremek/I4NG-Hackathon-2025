@@ -1,10 +1,10 @@
-# I4NG-Hackathon-2025
+# I4NG Hackathon 2025
 
-**"Make it Digital" Pillar –** CROss-National Online Survey (CRONOS) and The European Social Survey (ESS) **Data Analysis for Policy Brief**
+**"Make it Digital" Pillar: CROss-National Online Survey (CRONOS) and The European Social Survey (ESS) Data Analysis for Policy Brief**
 
 ## 📌 Project Overview
 
-The project was developed as part of the I4NG Hackathon 2025 and focuses on understanding what influences Europeans’ confidence in digital fact-checking and how to strengthen these skills through policy recommendations.
+The project was developed as part of the [I4NG Hackathon 2025](https://infra4nextgen.com/events/save-the-date-hackathon-2/) and focuses on understanding what influences Europeans’ confidence in digital fact-checking and how to strengthen these skills through policy recommendations.
 
 ## 📊 Key Findings
 
@@ -29,6 +29,12 @@ The project was developed as part of the I4NG Hackathon 2025 and focuses on unde
 
 4.  **Support Academic Communication**\
     Train scholars to share evidence-based knowledge in accessible ways.
+
+------------------------------------------------------------------------
+
+**Read the full policy brief or see [supplementary tables](https://github.com/zremek/I4NG-Hackathon-2025/tree/main/supplementary_tables).**
+
+------------------------------------------------------------------------
 
 ## 📂 Data Sources
 
@@ -62,12 +68,16 @@ All supplementary tables and code are available in this repo.
 
 ## 👥 Authors
 
--   **Jakub Adamski** – [jakub.adamski\@uni.lodz.pl](mailto:jakub.adamski@uni.lodz.pl){.email}\
+-   **Jakub Adamski** – [jakub.adamski\@uni.lodz.pl](mailto:jakub.adamski@uni.lodz.pl)\
 
--   **Remigiusz Żulicki** – [remigiusz.zulicki\@ni.lodz.pl](mailto:remigiusz.zulicki@ni.lodz.pl){.email}\
+-   **Remigiusz Żulicki** – [remigiusz.zulicki\@ni.lodz.pl](mailto:remigiusz.zulicki@ni.lodz.pl)\
 
-    Faculty of Economics and Sociology, University of Lodz, Poland
+[Faculty of Economics and Sociology](https://www.eksoc.uni.lodz.pl/en/about-the-faculty/get-to-know-eksoc), University of Lodz, Poland
 
 ## 📄 License
 
-This work is licensed under [CC BY 4.0] <https://creativecommons.org/licenses/by/4>
+This work is licensed under CC BY 4.0.
+
+To view a copy of this license, visit [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/)
+
+![](by.png){width="142"}
