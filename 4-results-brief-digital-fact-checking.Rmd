@@ -156,7 +156,7 @@ We studied 14 factors of confidence in digital fact-checking, and 8 had no meani
 
 Open data from CRONOS3 Wave 1 (\url{https://doi.org/10.21338/cronos3-w1}), ESS10 (\url{https://doi.org/10.21338/ess10e03_2}), ESS10sc (\url{https://doi.org/10.21338/ess10sce03_1}), and ESS11 (\url{https://doi.org/10.21338/ess11e03_0}) represent countries: Austria, Belgium, Czechia, Finland, France, Hungary, Iceland, Poland, Portugal, Slovenia, and the United Kingdom. Respondents who did not use the internet or had no access to it were excluded; a total unweighted sample in the analysis was $n = 9{,}538$.
 
-Supplementary tables and code to reproduce our analysis are openly available at: \url{https://github.com/zremek/I4NG-Hackathon-2025}
+\href{https://github.com/zremek/I4NG-Hackathon-2025/tree/main/supplementary_tables}{Supplementary tables} and GNU R code to reproduce our analysis are openly available at: \url{https://github.com/zremek/I4NG-Hackathon-2025}
 \normalsize
 \end{flushleft}
 
