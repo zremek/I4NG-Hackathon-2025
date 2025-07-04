@@ -2,7 +2,6 @@ library(sjlabelled)
 library(sjPlot)
 library(sjmisc)
 library(DataExplorer)
-library(table1)
 
 # ============================== read me first ================================
 # reproducibility note: #### 
