@@ -78,7 +78,7 @@ tab_xtab(c_mutated_tab$w1dq9, c_mutated_tab$w1dq3,
          title = "Checking truthfulness of online content vs. frequent internet usage. Original categories and missings (NA); unweighted counts and percentages of answers.",
          file = "t3.html")
 
-## tab4 shows three logistic models' statistics #### 
+## tab4 shows two logistic models' statistics #### 
 
 tab_model(
   M0,
@@ -92,3 +92,147 @@ tab_model(
   file = "tab-models-M0-M2.html"
 )
 
+## tab5 shows four logistic models' statistics #### 
+
+tab_model(
+  M0,
+  M3,
+  M2,
+  M1,
+  title = "Dependent variable: Knows how to check truthfulness of online content (1 = 'Very true', 0 = other). Answers 'Very true' were treated as an indicator of confidence in digital fact-checking; logistic regression method, weighted data.",
+  dv.labels = c(
+    "M0: inital model",
+    "M3: M0 without income and gentrust",
+    "M2: final model",
+    "M1: M2 without income and gentrust"
+  ),
+  use.viewer = F,show.reflvl = T, pred.labels = F,
+  file = "tab-models-four.html"
+)
+
+
+## tab6 shows three other logistic models' statistics #### 
+
+tab_model(
+  M0,
+  M3,
+  M4,
+  title = "Dependent variable: Knows how to check truthfulness of online content (1 = 'Very true', 0 = other). Answers 'Very true' were treated as an indicator of confidence in digital fact-checking; logistic regression method, weighted data.",
+  dv.labels = c(
+    "M0: inital model",
+    "M3: M0 without income and gentrust",
+    "M4: without age, science trust, gentrust"
+  ),
+  use.viewer = F,show.reflvl = T, pred.labels = F,
+  file = "6-tab-models.html"
+)
+
+
+# VIF #### 
+
+library(car)
+car::vif(M0)
+
+car::vif(M1)
+
+car::vif(M2)
+
+library(olsrr)
+olsrr::ols_vif_tol(M0)
+
+# corr matrix ####
+tab_corr(c_fin %>% 
+           select(-id, -w1weight, -CNTR_C) %>% 
+           remove_all_labels(), show.p = T, triangle = "l", 
+         file = "corr-matrix.html")
+
+# AIC #### 
+
+AIC(M0, M3, M2, M1)
+
+# BIC #### 
+
+bic_svyglm_fixed <- function(model, design) {
+  if (!inherits(model, "svyglm")) {
+    stop("Model must be of class 'svyglm'")
+  }
+  if (!inherits(design, "survey.design")) {
+    stop("Design must be of class 'survey.design'")
+  }
+  
+  k <- length(coef(model))
+  dev <- model$deviance
+  ll <- -0.5 * dev
+  n <- sum(weights(design))
+  
+  cat("Deviance:", dev, "\n")
+  cat("Log-likelihood (approx):", ll, "\n")
+  cat("Number of parameters (k):", k, "\n")
+  cat("Effective sample size (n):", n, "\n")
+  
+  BIC <- -2 * ll + log(n) * k
+  return(BIC)
+}
+
+bic_svyglm_fixed(M0, design)
+bic_svyglm_fixed(M3, design)
+bic_svyglm_fixed(M2, design)
+bic_svyglm_fixed(M1, design)
+
+
+tibble(Model = c("M0", "M3", "M2", "M1"), BIC = c("6637.965", "7870.114", "6603.374", "7842.924"))
+
+# nagelkerke #### 
+
+M0_nag <- survey::psrsq(M0, method = "Nagelkerke")
+M3_nag <- survey::psrsq(M3, method = "Nagelkerke")
+M2_nag <- survey::psrsq(M2, method = "Nagelkerke")
+M1_nag <- survey::psrsq(M1, method = "Nagelkerke")
+
+tibble(Model = c("M0", "M3", "M2", "M1"), Nagelkerke = c(M0_nag, M3_nag, M2_nag, M1_nag))
+
+# Testing for linearity of the logit #### 
+
+# EDY_C
+# HTI_C
+# AGE_C
+# SCNTR
+# GENTR 
+
+c_fin_log <- c_fin
+
+create_log_interactions <- function(data, vars) {
+  for (var in vars) {
+    new_var <- paste0("log_", var)
+    data[[new_var]] <- ifelse(data[[var]] > 0,
+                              data[[var]] * log(data[[var]]),
+                              0)
+  }
+  return(data)
+}
+
+
+vars_to_transform <- c("EDY_C", "HTI_C", "AGE_C", "SCNTR", "GENTR")
+
+c_fin_log <- create_log_interactions(c_fin_log, vars_to_transform)
+
+c_fin_log %>% 
+  select(contains(c("EDY_C", "HTI_C", "AGE_C", "SCNTR", "GENTR"))) %>% 
+  summary()
+
+lintest <- glm(TRC ~ EDY_C + HTI_C+ AGE_C + SCNTR + GENTR + 
+                 log_EDY_C + log_HTI_C + log_AGE_C + log_SCNTR + log_GENTR,
+               data = c_fin_log,
+               family = binomial())
+
+summary(lintest)
+
+
+
+# plots? 
+
+
+ggplot(c_fin, aes(x = TRC, y = SCNTR)) + geom_jitter()
+ggplot(c_fin, aes(x = factor(TRC), y = SCNTR)) + geom_boxplot()
+ggplot(c_fin, aes(x = TRC, y = GENTR)) + geom_jitter()
+ggplot(c_fin, aes(x = factor(TRC), y = GENTR)) + geom_boxplot()

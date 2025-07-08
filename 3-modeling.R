@@ -64,3 +64,25 @@ exp(cbind(OR = coef(M2), confint(M2)))
 
 # M2 is a final model for the policy brief
 
+# M3 as M0 but without income and gentrust 
+
+M3 <- svyglm(
+  TRC ~ CNTR_C + FLC + PGW + IFS + SMP + LMA + BSC + # know-hows
+    NETUALL + SCNTR  + DIGSKILLT + # int usage, trust in scientists, part. in digi training
+    GDF_C + EDY_C + AGE_C, # controls without income
+  design = design,
+  family = quasibinomial()
+)
+
+# M4 without age and trusts 
+
+M4 <- svyglm(
+  TRC ~ CNTR_C + 
+    FLC + PGW + IFS + SMP + LMA + BSC + # know-hows
+    NETUALL + DIGSKILLT + # int usage, without trust, part. in digi training
+    GDF_C + EDY_C + HTI_C, # controls with income, without age
+  design = design,
+  family = quasibinomial()
+)
+
+
