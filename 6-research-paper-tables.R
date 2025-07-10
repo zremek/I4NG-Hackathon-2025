@@ -236,3 +236,15 @@ ggplot(c_fin, aes(x = TRC, y = SCNTR)) + geom_jitter()
 ggplot(c_fin, aes(x = factor(TRC), y = SCNTR)) + geom_boxplot()
 ggplot(c_fin, aes(x = TRC, y = GENTR)) + geom_jitter()
 ggplot(c_fin, aes(x = factor(TRC), y = GENTR)) + geom_boxplot()
+
+ggplot(trcf_c_fin, aes(fill = trcf, x = CNTR_C)) + 
+  geom_bar(position = "fill") + 
+  coord_flip()
+
+tab_xtab(var.row = c_fin$CNTR_C, var.col = c_fin$TRC, 
+         show.na = T, show.row.prc = T, weight.by = c_fin$w1weight, 
+         file = "trc-by-country-weighted.html")
+
+tab_xtab(var.row = c_fin$CNTR_C, var.col = c_fin$TRC, 
+         show.na = T, show.row.prc = T, 
+         file = "trc-by-country.html")
