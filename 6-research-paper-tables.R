@@ -128,6 +128,21 @@ tab_model(
 )
 
 
+## tab7 shows three other logistic models' statistics #### 
+
+tab_model(
+  M0,
+  M3,
+  title = "Dependent variable: Knows how to check truthfulness of online content (1 = 'Very true', 0 = other). Answers 'Very true' were treated as an indicator of confidence in digital fact-checking; logistic regression method, weighted data.",
+  dv.labels = c(
+    "Model 1: inital model",
+    "Model 2: without income and gentrust"
+  ),
+  use.viewer = F,show.reflvl = T, pred.labels = F,
+  file = "7-tab-models.html"
+)
+
+
 # VIF #### 
 
 library(car)
@@ -248,3 +263,61 @@ tab_xtab(var.row = c_fin$CNTR_C, var.col = c_fin$TRC,
 tab_xtab(var.row = c_fin$CNTR_C, var.col = c_fin$TRC, 
          show.na = T, show.row.prc = T, 
          file = "trc-by-country.html")
+
+
+# crosstab for confidence gap 
+
+tab_xtab(c_mutated_tab$w1dq9, c_mutated_tab$w1dq3,
+         weight.by = c_mutated_tab$w1weight, 
+         show.obs = T, 
+         show.col.prc = T, 
+         show.row.prc = T, 
+         show.summary = F,
+         emph.total = T, 
+         show.na = T) 
+         
+tab_xtab(c_mutated_tab$TRC, c_mutated_tab$NETU_T,
+         weight.by = c_mutated_tab$w1weight, 
+         show.obs = F, 
+         show.col.prc = T, 
+         show.row.prc = T, 
+         show.summary = F,
+         emph.total = T, 
+         show.na = T, 
+         title = "Checking truthfulness of online content vs. frequent internet usage. Answers 'Very true' were treated as an indicator of confidence in digital fact-checking; grouped categories, weighted percentages of answers.")
+
+tab_xtab(c_mutated_tab$TRC, c_mutated_tab$NETU_T,
+         show.obs = T, 
+         show.col.prc = T, 
+         show.row.prc = T, 
+         show.summary = F,
+         emph.total = T, 
+         show.na = T,
+         title = "Checking truthfulness of online content vs. frequent internet usage. Answers 'Very true' were treated as an indicator of confidence in digital fact-checking; grouped categories, weighted percentages of answers.")
+
+
+# survey package
+
+
+
+# Step 1: Create a survey design object
+cdesign <- svydesign(
+  ids = ~1,  # assuming simple random sampling
+  data = c_mutated_tab,
+  weights = ~w1weight
+)
+
+# Step 2: Create a crosstab (contingency table)
+svytable(~ TRC + NETU_T, cdesign, exclude = NULL)
+
+# Cronbach’s Alpha 
+
+library(psych)
+
+c_mutated %>% 
+  filter(no_int_access_or_use == 0) %>% 
+  select(pplfair_num, pplhlp_num, ppltrst_num) %>% 
+  psych::alpha()
+
+
+
